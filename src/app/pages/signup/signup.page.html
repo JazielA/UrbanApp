@@ -1,8 +1,11 @@
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" >
   <div class="header">
-    <ion-title class="title">Bienvenido</ion-title>
-    <p class="subTitle">Registrate para crear tu cuenta</p>
+    <ion-title class="title">
+      Bienvenido
+      <p class="subTitle">Registrate para crear tu cuenta</p>
+    </ion-title>
+    
   </div>
 
   <form  >
@@ -23,7 +26,7 @@
         <p>¿ya estas registrado? <a style="color:#FFC33F" [routerLink]="['/login']">Iniciar sesión</a></p>
       </div>
     </div>
-    <ion-fab vertical="bottom" horizontal="end" style="margin-bottom:30px ;">
+    <ion-fab class="bounce-in-fwd" vertical="bottom" horizontal="end" style="margin-bottom:30px ;">
       <ion-fab-button  [routerLink]="['/home']">
         <ion-icon name="chevron-forward">
         </ion-icon>

@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
       }
       this.router.navigate(['/home'],navigationextras);
     }else{
-      this.presentToast("bottom","Falta "+this.field,4000);
+      this.presentToast("top","Falta "+this.field,4000);
     }
     
   }
