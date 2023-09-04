@@ -1,0 +1,25 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Righteous&family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+
+    <!-- <ion-img src="assets/icon/icono.png" /> -->
+    
+    <lottie-player slot="end" autoplay loop src="https://lottie.host/cb654846-9d0f-4504-9655-95b540bcd0d1/2i17rrsxzC.json">
+    </lottie-player>
+
+    <ion-title class="urbanTittle" style="color: rgb(239, 243, 9);">Urban App</ion-title>
+    <br>
+    <ion-title style="color: rgb(239, 243, 9);">Te dejamos seguros en casa</ion-title>
+  
+  </div>
+  
+  <ion-fab vertical="bottom" horizontal="end" style="margin-bottom:30px ;">
+    <ion-fab-button [routerLink]="['/login']">
+      <ion-icon name="chevron-forward">
+      </ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

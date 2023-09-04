@@ -1,0 +1,7 @@
+{
+  "name": "molly",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
