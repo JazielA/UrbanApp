@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingPage implements OnInit {
 
+  router = inject(Router)
   constructor() { }
 
   ngOnInit() {
+  }
+ 
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.router.navigateByUrl('/login')
+    }, 3000);
   }
 
 }
