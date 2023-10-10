@@ -8,14 +8,7 @@ import { LandingPageRoutingModule } from './landing-routing.module';
 
 import { LandingPage } from './landing.page';
 
-import { defineCustomElements } from '@teamhive/lottie-player/loader';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-
-
-
-
-defineCustomElements(window);
 
 
 // @NgModule({
@@ -34,8 +27,7 @@ defineCustomElements(window);
     IonicModule,
     LandingPageRoutingModule,
   ],
-  declarations: [LandingPage],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  declarations: [LandingPage]
 })
 
 export class LandingPageModule {}

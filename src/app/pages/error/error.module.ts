@@ -8,11 +8,8 @@ import { ErrorPageRoutingModule } from './error-routing.module';
 
 import { ErrorPage } from './error.page';
 
-import { defineCustomElements } from '@teamhive/lottie-player/loader';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
-defineCustomElements(window);
 
 @NgModule({
   imports: [
@@ -21,7 +18,6 @@ defineCustomElements(window);
     IonicModule,
     ErrorPageRoutingModule
   ],
-  declarations: [ErrorPage],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  declarations: [ErrorPage]
 })
 export class ErrorPageModule {}
