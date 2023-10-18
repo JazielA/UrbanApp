@@ -5,8 +5,12 @@
     font-size: 300;
 }
 
+ion-content{
+    --ion-background-color: url(/assets/gif/H9it.gif);
+}
+
 ion-item{
-    --background:#f1f1f1;
+    --background:#a84a4a91;
     border-radius: 10px;
     margin-bottom: 16px;
 
@@ -16,8 +20,8 @@ ion-item{
     margin-bottom: 80px;
     text-align: center;
     .subTitle{
-        color: gray;
-        font-size: 0.9rem;
+        color: #000000;
+        font-size: 1.2rem;
     }
     title{
         font-size: 2rem;
