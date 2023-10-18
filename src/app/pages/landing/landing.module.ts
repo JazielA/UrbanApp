@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -7,7 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { LandingPageRoutingModule } from './landing-routing.module';
 
 import { LandingPage } from './landing.page';
+import { defineCustomElements } from '@teamhive/lottie-player/loader';
 
+
+
+
+
+
+defineCustomElements(window);
 
 
 
@@ -27,7 +34,8 @@ import { LandingPage } from './landing.page';
     IonicModule,
     LandingPageRoutingModule,
   ],
-  declarations: [LandingPage]
+  declarations: [LandingPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class LandingPageModule {}
