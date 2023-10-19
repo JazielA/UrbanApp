@@ -12,6 +12,9 @@
       <!-- <img [src]="imagePath" alt="" /> -->
       <!-- <img src="./assets/icon/icono.png" /> -->
       <app-logo src="./assets/icon/icono.png"></app-logo>
+
+      <!-- ================ Input Email   ==================== -->
+
       <app-custom-input
         autocomplete="email"
         icon="mail-outline"
@@ -32,6 +35,7 @@
         </div>
       </div>
 
+      <!-- ================  Input contraseña  ==================== -->
       <app-custom-input
         [control]="form.controls.password"
         icon="lock-closed-outline"
@@ -52,6 +56,8 @@
         ¿Olvidaste tu contraseña?
       </p>
 
+      <!-- boton ingresar -->
+
       <ion-button
         color="success"
         expand="block"
@@ -64,6 +70,7 @@
         <ion-icon slot="end" name="log-in-outline"></ion-icon>
       </ion-button>
 
+      <!-- boton registrar -->
       <ion-button
         routerLink="sign-up"
         class="ion-margin-top"

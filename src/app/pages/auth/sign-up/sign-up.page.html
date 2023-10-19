@@ -13,9 +13,11 @@
       <!-- <img src="./assets/icon/icono.png" /> -->
       <app-logo src="./assets/icon/icono.png"></app-logo>
 
+      <!-- ================  Input Nombre  ==================== -->
+
       <app-custom-input
         autocomplete="name"
-        icon="person-add-outline"
+        icon="person-outline"
         [control]="form.controls.name"
         type="text"
         label="Nombre"
@@ -32,6 +34,8 @@
           El nombre debe tener al menos 4 caracteres
         </div>
       </div>
+
+      <!-- ================ Input Email   ==================== -->
 
       <app-custom-input
         autocomplete="email"
@@ -53,6 +57,8 @@
         </div>
       </div>
 
+      <!-- ================  Input contraseña  ==================== -->
+
       <app-custom-input
         [control]="form.controls.password"
         icon="lock-closed-outline"
@@ -70,15 +76,15 @@
       </div>
 
       <ion-button
-        routerLink="sign-up"
-        class="ion-margin-top"
         color="success"
         expand="block"
         mode="ios"
-        fill="outline"
+        type="submit"
+        class="submit"
+        [disabled]="form.invalid"
       >
         Registrate
-        <ion-icon slot="end" name="person-add-outline"></ion-icon>
+        <ion-icon slot="end" name="log-in-outline"></ion-icon>
       </ion-button>
     </form>
   </div>
