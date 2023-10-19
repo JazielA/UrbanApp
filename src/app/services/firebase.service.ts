@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 // para usar funciones de autenticacion de firebase
 import { AngularFireAuth } from '@angular/fire/compat/auth'
 
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, updateCurrentUser } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, updateCurrentUser, sendPasswordResetEmail } from 'firebase/auth';
 import { User } from '../models/user.model';
 
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -15,6 +15,10 @@ export class FirebaseService {
   auth = inject(AngularFireAuth);
   firestore = inject(AngularFirestore);
 
+  //====restriccion para que no pueda entrar sin login y pass
+  getAuth(){
+    return getAuth();
+  }
 
   // Autenticacion
   signIn(user: User){
@@ -32,7 +36,11 @@ export class FirebaseService {
   }
 
 
+//=====enviar un email para reestablecer contraseña====
+sendRecoveryEmail(email: string){
+  return sendPasswordResetEmail(getAuth(),email);
 
+}
 
 
   // ==================== BASE DE DATOS  ========================
