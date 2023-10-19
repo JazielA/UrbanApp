@@ -16,7 +16,7 @@ export class LandingPage implements OnInit {
  
   ionViewWillEnter() {
     setTimeout(() => {
-      this.router.navigateByUrl('/login')
+      this.router.navigateByUrl('/auth')
     }, 3000);
   }
 
