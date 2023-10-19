@@ -6,7 +6,7 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, up
 import { User } from '../models/user.model';
 
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { getFirestore, setDoc, doc } from '@angular/fire/firestore';
+import { getFirestore, setDoc, doc,getDoc } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root'
 })
@@ -43,7 +43,10 @@ setDocument(path:string, data: any){
   return setDoc(doc(getFirestore(),path), data);
 }
 
-
+//=====obtener documento
+async getDocument(path:string){
+  return (await getDoc(doc(getFirestore(),path))).data();
+}
 
 
 

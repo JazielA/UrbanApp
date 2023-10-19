@@ -18,7 +18,7 @@ export class AuthPage implements OnInit {
     password: new FormControl('',[Validators.required]),
   })
   // inyeccion de servicios
-  firebaseSvg = inject(FirebaseService);
+  firebaseSvc = inject(FirebaseService);
   utilsSvc = inject(UtilsService);
 
   imagePath: string = 'assets/icon/icono.png';
@@ -31,8 +31,10 @@ export class AuthPage implements OnInit {
 
       const loading = await this.utilsSvc.loading();
       await loading.present();
-      this.firebaseSvg.signIn(this.form.value as User).then(res => {
-        console.log(res);
+      this.firebaseSvc.signIn(this.form.value as User).then(res => {
+        
+
+        this.getUserInfo(res.user.uid);
         
       }).catch(error =>{
         console.log(error);
@@ -51,6 +53,42 @@ export class AuthPage implements OnInit {
     }
   }
 
+  async getUserInfo(uid: string) {
+    if (this.form.valid) {
+      const loading = await this.utilsSvc.loading();
+      await loading.present();
 
+      let path = `users/${uid}`;
+
+      
+      this.firebaseSvc.getDocument(path).then((user: User) => {
+          this.utilsSvc.saveInLocalStorage("user", user);
+          this.utilsSvc.routerLink("/main/home");
+          this.form.reset();
+
+          this.utilsSvc.presentToast({
+            message: `Bienvenido ${user.name}`,
+            duration: 2500,
+            color: "primary",
+            position: "middle",
+            icon: "person-circle-outline",
+          })
+        })
+
+        .catch((error) => {
+          console.log(error);
+          this.utilsSvc.presentToast({
+            message: "Las credenciales no son correctas",
+            duration: 2500,
+            color: "dark",
+            position: "middle",
+            icon: "alert-circle-outline",
+          });
+        })
+        .finally(() => {
+          loading.dismiss();
+        });
+    }
+  }
 
 }
