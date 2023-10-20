@@ -1,4 +1,17 @@
+<app-header title="Home"></app-header>
+
 <div>
   <img class="urban-icon" src="./assets/icon/reloj.png" alt="" />
-  <p class="ion-text-center" > Guarda la patente del bus de tus hijos</p>
+  <p class="ion-text-center">Guarda la patente del bus de tus hijos</p>
 </div>
+
+<ion-content>
+  <!--  boton de comenzar  viaje  -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-button (click)="signOut()"> Cerrar Sesión </ion-button>
+</ion-content>
