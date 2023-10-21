@@ -13,14 +13,24 @@ import {
 import { User } from "../models/user.model";
 
 import { AngularFirestore } from "@angular/fire/compat/firestore";
-import { getFirestore, setDoc, doc, getDoc } from "@angular/fire/firestore";
+import {
+  getFirestore,
+  setDoc,
+  doc,
+  getDoc,
+  addDoc,
+  collection,
+} from "@angular/fire/firestore";
 import { UtilsService } from "./utils.service";
+import { AngularFireStorage } from "@angular/fire/compat/storage";
+
 @Injectable({
   providedIn: "root",
 })
 export class FirebaseService {
   auth = inject(AngularFireAuth);
   firestore = inject(AngularFirestore);
+  storage = inject(AngularFireStorage);
   utilSvc = inject(UtilsService);
 
   //====restriccion para que no pueda entrar sin login y pass
@@ -61,8 +71,16 @@ export class FirebaseService {
     return setDoc(doc(getFirestore(), path), data);
   }
 
-  //=====obtener documento
+  //=================== obtener documento ===================
   async getDocument(path: string) {
     return (await getDoc(doc(getFirestore(), path))).data();
   }
+
+  // =================== Agregar un documento ====================
+  addDocument(path: string, data: any) {
+    return addDoc(collection(getFirestore(), path), data);
+  }
+
+  // ==================== BASE DE DATOS  ========================
+  uploadImage() { }
 }
