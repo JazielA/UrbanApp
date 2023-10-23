@@ -1,6 +1,8 @@
 import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import {
+  AlertController,
+  AlertOptions,
   LoadingController,
   ModalController,
   ModalOptions,
@@ -17,6 +19,7 @@ export class UtilsService {
   toastCtrl = inject(ToastController);
   modalCtrl = inject(ModalController);
   router = inject(Router);
+  alertaCtrl = inject(AlertController)
 
   async takePicture(promptLabelHeader: string) {
     return await Camera.getPhoto({
@@ -28,6 +31,12 @@ export class UtilsService {
       promptLabelPhoto: "Selecciona una imagen",
       promptLabelPicture: "Toma una foto",
     });
+  };
+
+  // Alerta
+  async presentAlert(opts?: AlertOptions) {
+    const alert = await this.alertaCtrl.create(opts);
+    await alert.present();
   }
 
   // Pantalla de carga
@@ -64,13 +73,14 @@ export class UtilsService {
   async presentModal(opts: ModalOptions) {
     const modal = await this.modalCtrl.create(opts);
     await modal.present();
-
+    // aqui obtenemos la data del modal cuando se cierra
     const { data } = await modal.onWillDismiss();
+    // si existe data esta se retornará
     if (data) return data;
   }
 
   // cerra el modal
-
+  // 
   dismissModal(data?: any) {
     return this.modalCtrl.dismiss(data);
   }

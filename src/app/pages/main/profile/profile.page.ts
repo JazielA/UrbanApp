@@ -15,19 +15,25 @@ export class ProfilePage implements OnInit {
   utilsSvc = inject(UtilsService);
   imagePath: string = "assets/icon/icono.png";
 
-  ngOnInit() {}
+  ngOnInit() { }
 
+
+  pError() {
+    this.utilsSvc.routerLink("/404");
+  }
+
+  // fn que trae los datos del usuario desde el local storage
   user(): User {
     return this.utilsSvc.getFromLocalStorage("user");
   }
 
   // tomar/seleccionar una imagen
   async takeImage() {
+    // variable que captura los datos del usuaio
     let user = this.user();
     let path = `users/${user.uid}`;
 
-    const dataUrl = (await this.utilsSvc.takePicture("Imagen de Perfil"))
-      .dataUrl;
+    const dataUrl = (await this.utilsSvc.takePicture("Imagen de Perfil")).dataUrl;
 
     const loading = await this.utilsSvc.loading();
     await loading.present();
@@ -35,9 +41,9 @@ export class ProfilePage implements OnInit {
     let imagePath = `${user.uid}/profile`;
     user.image = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
 
-    this.utilsSvc.saveInLocalStorage("user", user);
 
-    
+
+    this.utilsSvc.saveInLocalStorage("user", user);
 
     this.utilsSvc.presentToast({
       message: "Imagen guardada correctamente",

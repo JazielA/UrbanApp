@@ -18,15 +18,15 @@ import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
-    BrowserModule, 
-    IonicModule.forRoot({mode: 'md'}), 
+    BrowserModule,
+    IonicModule.forRoot({ mode: 'md' }),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
-  
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 })
-export class AppModule {}
+export class AppModule { }

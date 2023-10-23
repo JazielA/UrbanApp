@@ -17,37 +17,15 @@ import { User } from "firebase/auth";
 export class HomePage implements OnInit {
   firebaseSvc = inject(FirebaseService);
   utilSvc = inject(UtilsService);
-  @ViewChild('map') mapRef: ElementRef;
-  map: GoogleMap;
+
 
   ngOnInit() { }
 
+
+  // obtener datos del usuario desde el local storage
   user(): User {
     return this.utilSvc.getFromLocalStorage('user');
   }
-
-
-  ionViewDidEnter() {
-    this.createMap();
-  }
-
-  async createMap() {
-    this.map = await GoogleMap.create({
-      id: 'my-map',
-      apiKey: environment.mapsKey,
-      element: this.mapRef.nativeElement,
-      forceCreate: true,
-      config: {
-        center: {
-          lat: 33.6,
-          lng: -117.9,
-        },
-        zoom: 8,
-      },
-    });
-  }
-
-
 
 
   // Agregar un viaje

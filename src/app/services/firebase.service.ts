@@ -20,10 +20,14 @@ import {
   getDoc,
   addDoc,
   collection,
+  collectionData,
+  query,
+  updateDoc,
+  deleteDoc
 } from "@angular/fire/firestore";
 import { UtilsService } from "./utils.service";
 import { AngularFireStorage } from "@angular/fire/compat/storage";
-import { getStorage, uploadString, ref, getDownloadURL } from "firebase/storage"
+import { getStorage, uploadString, ref, getDownloadURL, deleteObject } from "firebase/storage"
 
 @Injectable({
   providedIn: "root",
@@ -67,9 +71,28 @@ export class FirebaseService {
 
   // ==================== BASE DE DATOS  ========================
 
+  // obtener documentos de una coleccion
+  getCollectionData(path: string, collectionquery?: any) {
+    const ref = collection(getFirestore(), path);
+    return collectionData(query(ref, collectionquery), { idField: 'id' });
+  }
+
+
+
   // Setear un documento, con esta funcion nos guardara los datos del usuario
   setDocument(path: string, data: any) {
     return setDoc(doc(getFirestore(), path), data);
+  }
+
+  //=================== actualizar documento ===================
+  updateDocument(path: string, data: any) {
+    return updateDoc(doc(getFirestore(), path), data);
+  }
+
+
+  //=================== Eliminar documento ===================
+  deleteDocument(path: string) {
+    return deleteDoc(doc(getFirestore(), path));
   }
 
   //=================== obtener documento ===================
@@ -82,10 +105,22 @@ export class FirebaseService {
     return addDoc(collection(getFirestore(), path), data);
   }
 
-  // ==================== BASE DE DATOS  ========================
+
+
+  // ==================== Almacenamiento  ========================
+
+  // subir imagen 
   async uploadImage(path: string, data_url: string) {
-    return uploadString(ref(getStorage(),path),data_url,'data_url').then(()=>{
-      return getDownloadURL(ref(getStorage(),path));
+    return uploadString(ref(getStorage(), path), data_url, 'data_url').then(() => {
+      return getDownloadURL(ref(getStorage(), path));
     })
-   }
+  }
+
+
+  // eliminar archivos del storage
+
+  deleteFile(path: string) {
+    return deleteObject(ref(getStorage(), path));
+  }
+
 }

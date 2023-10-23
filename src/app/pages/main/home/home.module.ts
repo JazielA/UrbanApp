@@ -21,6 +21,6 @@ import { SharedModule } from "src/app/shared/shared.module";
     SharedModule,
   ],
   declarations: [HomePage],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class HomePageModule { }

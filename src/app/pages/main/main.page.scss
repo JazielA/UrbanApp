@@ -28,9 +28,19 @@ ion-item {
     }
 }
 
+ion-avatar{
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+}
+
 .avatar-icon{
     font-size: 100px;
     color: #9C27B0;
+}
+.empty-icon{
+    font-size: 140px;
+   
 }
 
 ion-menu{

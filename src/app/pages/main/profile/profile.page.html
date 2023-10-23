@@ -1,8 +1,13 @@
-<app-header backButton="main/home" title="Mi Perfil"></app-header>
+<app-header [showMenu]="true" title="Mi Perfil"></app-header>
 
 <ion-content class="ion-padding-top ion-text-center">
   <ion-avatar>
-    <img [src]="user()?.image" />
+    <img *ngIf="user()?.image" [src]="user()?.image" />
+    <ion-icon
+      *ngIf="!user()?.image"
+      class="empty-icon"
+      name="person-circle-outline"
+    ></ion-icon>
   </ion-avatar>
 
   <ion-button
@@ -15,12 +20,14 @@
     <ion-icon name="camera-outline"></ion-icon>
   </ion-button>
   <br />
-  <p>Usuario:</p>
-  <h1>{{user()?.name}}</h1>
+  <p></p>
+  <h2>{{user()?.name}}</h2>
   <br />
-  <p>Correo</p>
-  <h3>{{user()?.email}}</h3>
 
+  <ion-item (click)="pError()" button detail>
+    <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
+    <ion-label>Editar Perfil</ion-label>
+  </ion-item>
   <div class="container">
     <lottie-player
       style="width: 50%"
