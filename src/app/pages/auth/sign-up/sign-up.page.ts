@@ -24,7 +24,7 @@ export class SignUpPage implements OnInit {
 
   imagePath: string = "assets/icon/icono.png";
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async submit() {
     if (this.form.valid) {
@@ -63,13 +63,11 @@ export class SignUpPage implements OnInit {
       let path = `users/${uid}`;
 
       delete this.form.value.password;
-      this.firebaseSvc
-        .setDocument(path, this.form.value)
-        .then(async (res) => {
-          this.utilsSvc.saveInLocalStorage("user", this.form.value);
-          this.utilsSvc.routerLink("/main/home");
-          this.form.reset();
-        })
+      this.firebaseSvc.setDocument(path, this.form.value).then(async (res) => {
+        this.utilsSvc.saveInLocalStorage("user", this.form.value);
+        this.utilsSvc.routerLink("/main/home");
+        this.form.reset();
+      })
         .catch((error) => {
           console.log(error);
           this.utilsSvc.presentToast({

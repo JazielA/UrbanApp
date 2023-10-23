@@ -77,8 +77,6 @@ export class FirebaseService {
     return collectionData(query(ref, collectionquery), { idField: 'id' });
   }
 
-
-
   // Setear un documento, con esta funcion nos guardara los datos del usuario
   setDocument(path: string, data: any) {
     return setDoc(doc(getFirestore(), path), data);
@@ -88,7 +86,6 @@ export class FirebaseService {
   updateDocument(path: string, data: any) {
     return updateDoc(doc(getFirestore(), path), data);
   }
-
 
   //=================== Eliminar documento ===================
   deleteDocument(path: string) {
@@ -106,7 +103,6 @@ export class FirebaseService {
   }
 
 
-
   // ==================== Almacenamiento  ========================
 
   // subir imagen 
@@ -116,11 +112,9 @@ export class FirebaseService {
     })
   }
 
-
   // eliminar archivos del storage
 
   deleteFile(path: string) {
     return deleteObject(ref(getStorage(), path));
   }
-
 }

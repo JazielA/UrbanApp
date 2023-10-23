@@ -30,27 +30,34 @@ export class ProfilePage implements OnInit {
   // tomar/seleccionar una imagen
   async takeImage() {
     // variable que captura los datos del usuaio
-    let user = this.user();
-    let path = `users/${user.uid}`;
+    try {
+      let user = this.user();
+      let path = `users/${user.uid}`;
 
-    const dataUrl = (await this.utilsSvc.takePicture("Imagen de Perfil")).dataUrl;
+      const loading = await this.utilsSvc.loading();
+      await loading.present();
 
-    const loading = await this.utilsSvc.loading();
-    await loading.present();
+      const dataUrl = (await this.utilsSvc.takePicture("Imagen de Perfil")).dataUrl;
 
-    let imagePath = `${user.uid}/profile`;
-    user.image = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
+      let imagePath = `${user.uid}/profile`;
+      user.image = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
+
+      this.utilsSvc.saveInLocalStorage("user", user);
+
+      this.utilsSvc.presentToast({
+        message: "Imagen guardada correctamente",
+        duration: 2500,
+        color: "dark",
+        position: "middle",
+        icon: "alert-circle-outline",
+      });
+      loading.dismiss();
+
+    } catch (error) {
+      console.log(error);
 
 
+    }
 
-    this.utilsSvc.saveInLocalStorage("user", user);
-
-    this.utilsSvc.presentToast({
-      message: "Imagen guardada correctamente",
-      duration: 2500,
-      color: "dark",
-      position: "middle",
-      icon: "alert-circle-outline",
-    });
   }
 }

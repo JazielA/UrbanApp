@@ -15,18 +15,43 @@ import { User } from "firebase/auth";
 
 })
 export class HomePage implements OnInit {
+
   firebaseSvc = inject(FirebaseService);
   utilSvc = inject(UtilsService);
 
-
   ngOnInit() { }
+
+  @ViewChild('map') mapRef: ElementRef;
+  map: GoogleMap;
+
+  ionViewDidEnter() {
+    this.createMap();
+
+  }
+
+  async createMap() {
+    console.log("si pasa");
+
+    this.map = await GoogleMap.create({
+      id: 'my-map',
+      apiKey: environment.mapsKey,
+      element: this.mapRef.nativeElement,
+      config: {
+        center: {
+          lat: -33.03360641459286,
+          lng: -71.53317760013344,
+        },
+        zoom: 8,
+      },
+    });
+  }
+
 
 
   // obtener datos del usuario desde el local storage
   user(): User {
     return this.utilSvc.getFromLocalStorage('user');
   }
-
 
   // Agregar un viaje
   addTrip() {
@@ -35,9 +60,5 @@ export class HomePage implements OnInit {
       cssClass: "add-trip-modal",
     });
   }
-
-
-
-
 
 }
