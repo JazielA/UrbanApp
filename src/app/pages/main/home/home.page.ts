@@ -42,6 +42,7 @@ export class HomePage implements OnInit {
           lng: -71.53317760013344,
         },
         zoom: 8,
+        disableDefaultUI: true,
       },
     });
   }
