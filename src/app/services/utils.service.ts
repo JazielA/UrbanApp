@@ -31,6 +31,7 @@ export class UtilsService {
       promptLabelPhoto: "Selecciona una imagen",
       promptLabelPicture: "Toma una foto",
     });
+    this.loadingCtrl.dismiss();
   };
 
   // Alerta

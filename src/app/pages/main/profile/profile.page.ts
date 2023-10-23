@@ -55,8 +55,8 @@ export class ProfilePage implements OnInit {
 
     } catch (error) {
       console.log(error);
-
-
+      const loading = await this.utilsSvc.loading();
+      loading.dismiss();
     }
 
   }

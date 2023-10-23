@@ -8,6 +8,7 @@ import { ErrorPageRoutingModule } from './error-routing.module';
 
 import { ErrorPage } from './error.page';
 import { defineCustomElements } from '@teamhive/lottie-player/loader';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -23,9 +24,10 @@ defineCustomElements(window);
     CommonModule,
     FormsModule,
     IonicModule,
-    ErrorPageRoutingModule
+    ErrorPageRoutingModule,
+    SharedModule
   ],
   declarations: [ErrorPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ErrorPageModule {}
+export class ErrorPageModule { }
