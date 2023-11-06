@@ -1,7 +1,8 @@
 import { Component, Input, OnInit, inject } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
-import { address } from "src/app/models/address.model";
+
+import { Address } from "src/app/models/address.model";
 import { User } from "src/app/models/user.model";
 
 import { FirebaseService } from "src/app/services/firebase.service";
@@ -14,7 +15,7 @@ import { UtilsService } from "src/app/services/utils.service";
 })
 export class AddTripComponent implements OnInit {
 
-  @Input() address: address
+  @Input() address: Address
 
   direccionVar = "";
 

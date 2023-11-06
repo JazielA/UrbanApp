@@ -7,30 +7,30 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./gmap.component.scss'],
 })
 export class GmapComponent {
-  // @ViewChild('map') mapRef: ElementRef;
-  // map: GoogleMap;
+  @ViewChild('map') mapRef: ElementRef;
+  map: GoogleMap;
 
-  // ionViewDidEnter() {
-  //   console.log("si pasa");
-  //   this.createMap();
+  ionViewDidEnter() {
+    console.log("si pasa");
+    this.createMap();
 
-  // }
+  }
 
-  // async createMap() {
-  //   console.log("si pasa");
+  async createMap() {
+    console.log("si pasa");
 
-  //   this.map = await GoogleMap.create({
-  //     id: 'my-map',
-  //     apiKey: environment.mapsKey,
-  //     element: this.mapRef.nativeElement,
-  //     config: {
-  //       center: {
-  //         lat: 33.6,
-  //         lng: -117.9,
-  //       },
-  //       zoom: 8,
-  //     },
-  //   });
-  // }
+    this.map = await GoogleMap.create({
+      id: 'my-map',
+      apiKey: environment.mapsKey,
+      element: this.mapRef.nativeElement,
+      config: {
+        center: {
+          lat: 33.6,
+          lng: -117.9,
+        },
+        zoom: 8,
+      },
+    });
+  }
 
 }

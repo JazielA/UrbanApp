@@ -1,4 +1,4 @@
-export interface address {
+export interface Address {
     lng: number,
     lat: number,
     name: string,

@@ -14,7 +14,12 @@
   </ion-fab>
   <div class="container">
     <!--#map-->
-    <capacitor-google-map id="map"></capacitor-google-map>
+    <capacitor-google-map id="map" #map></capacitor-google-map>
+    <!-- <app-gmap></app-gmap> -->
   </div>
+  <ion-chip class="miubicacion" (click)="test()" mode="ios">
+    <ion-label class="normal">Mi ubicacion actual</ion-label>
+    <ion-icon name="locate"></ion-icon>
+  </ion-chip>
   <!-- <ion-button (click)="signOut()"> Cerrar Sesión </ion-button> -->
 </ion-content>

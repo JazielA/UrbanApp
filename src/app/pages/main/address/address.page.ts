@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Address } from 'cluster';
-import { address } from 'src/app/models/address.model';
+import { Address } from 'src/app/models/address.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -18,7 +17,7 @@ export class AddressPage implements OnInit {
   utilSvc = inject(UtilsService);
 
 
-  address: address[] = [];
+  address: Address[] = [];
   loading: boolean = false;
 
   ngOnInit() {
@@ -58,7 +57,7 @@ export class AddressPage implements OnInit {
 
 
   // Agregar o actualizar una direccion
-  async addUpdateAddress(address?: address) {
+  async addUpdateAddress(address?: Address) {
 
     let success = await this.utilSvc.presentModal({
       component: AddTripComponent,
@@ -69,7 +68,7 @@ export class AddressPage implements OnInit {
   }
 
   // Condirmacion de eliminacion de la direccion
-  async confirmDeleteAddress(address: address) {
+  async confirmDeleteAddress(address: Address) {
     this.utilSvc.presentAlert({
       header: 'Eliminar Direccion!',
       message: '¿Desea eliminar esta direccion de forma permanente?',
@@ -92,7 +91,7 @@ export class AddressPage implements OnInit {
 
 
   // Eliminar direccion
-  async deleteAddress(address: address) {
+  async deleteAddress(address: Address) {
 
 
     let path = `users/${this.user().uid}/direcciones/${address.id}`
