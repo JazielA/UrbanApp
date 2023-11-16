@@ -85,13 +85,7 @@ export class HomePage implements OnInit {
 
   }
 
-
-
   // geolocalizacion
-
-
-
-
   async test() {
 
     Geolocation.requestPermissions().then(async permission => {
@@ -106,14 +100,35 @@ export class HomePage implements OnInit {
   async test2() {
     console.log('Current position:');
     Geolocation.getCurrentPosition().then((res) => {
-
       const position = {
         lat: res.coords.latitude,
         lng: res.coords.longitude,
       };
 
       console.log('Current position:', position);
+
+      const markers: Marker[] = [
+        {
+          coordinate: {
+            lat: res.coords.latitude,
+            lng: res.coords.longitude,
+          },
+          title: 'Mi ubicacion actual',
+          snippet: 'position',
+          draggable: true,
+          iconUrl: "assets/icon/bus2.png",
+          iconSize: {
+            width: 50,
+            height: 50,
+          },
+        },
+      ];
+      this.map.addMarkers(markers);
     });
+
+
+
+
   }
 
   // agregar marcadores
@@ -135,14 +150,7 @@ export class HomePage implements OnInit {
           height: 50,
         },
       },
-      {
-        coordinate: {
-          lat: -33.04360641459286,
-          lng: -71.53317760013344,
-        },
-        title: 'Random place',
-        snippet: 'Best place on eath',
-      },
+
     ];
     await this.map.addMarkers(markers);
 
@@ -158,7 +166,6 @@ export class HomePage implements OnInit {
         initialBreakpoint: 0.3,
       });
       modal.present();
-
     })
   }
 
