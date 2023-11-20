@@ -10,6 +10,7 @@ import { User } from "firebase/auth";
 import { Geolocation } from '@capacitor/geolocation';
 import { ModalPage } from "../modal/modal.page";
 import { CapacitorGoogleMaps } from "@capacitor/google-maps/dist/typings/implementation";
+import { error } from "console";
 
 
 @Component({
@@ -17,8 +18,8 @@ import { CapacitorGoogleMaps } from "@capacitor/google-maps/dist/typings/impleme
   templateUrl: "./home.page.html",
   styleUrls: ["./home.page.scss"],
 
-
 })
+
 export class HomePage implements OnInit {
 
   firebaseSvc = inject(FirebaseService);
@@ -55,6 +56,7 @@ export class HomePage implements OnInit {
   }
 
 
+  // Cargar mapa
 
   @ViewChild('map') mapRef: ElementRef;
   map: GoogleMap;
@@ -62,6 +64,8 @@ export class HomePage implements OnInit {
   ngAfterViewInit() {
     this.createMap();
   }
+
+
   async createMap() {
     console.log("si pasa");
 
@@ -80,10 +84,20 @@ export class HomePage implements OnInit {
       },
     });
 
+
+    this.map.enableClustering();
+
+
+
     this.infoWindow = new google.maps.InfoWindow();
-    this.addMarkers();
+    // this.addMarkers();
+
 
   }
+
+
+
+
 
   // geolocalizacion
   async test() {
@@ -97,21 +111,53 @@ export class HomePage implements OnInit {
   }
 
 
+  watchPosition() {
+    const wait = Geolocation.watchPosition({}, (position, err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log(position);
+      this.addMarkers();
+    });
+
+
+  }
+
   async test2() {
+
     console.log('Current position:');
     Geolocation.getCurrentPosition().then((res) => {
       const position = {
         lat: res.coords.latitude,
         lng: res.coords.longitude,
       };
-
       console.log('Current position:', position);
+      this.addMarkers();
+    });
+  }
+
+
+  // agregar marcadores
+  async addMarkers() {
+
+
+    const wait = Geolocation.watchPosition({}, (position, err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log(position);
+
+
+
+
 
       const markers: Marker[] = [
         {
           coordinate: {
-            lat: res.coords.latitude,
-            lng: res.coords.longitude,
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
           },
           title: 'Mi ubicacion actual',
           snippet: 'position',
@@ -123,54 +169,36 @@ export class HomePage implements OnInit {
           },
         },
       ];
+
+
       this.map.addMarkers(markers);
-    });
+      const result = this.map.addMarkers(markers);
 
-
-
-
-  }
-
-  // agregar marcadores
-
-  async addMarkers() {
-
-    const markers: Marker[] = [
-      {
+      // centrar la posicion del mapa en la ubicacion del dispositivo
+      this.map.setCamera({
         coordinate: {
-          lat: this.position.lat,
-          lng: this.position.lng,
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
         },
-        title: 'Duoc',
-        snippet: 'Best place on eath',
-        draggable: true,
-        // iconUrl: "assets/icon/bus2.png",
-        iconSize: {
-          width: 50,
-          height: 50,
-        },
-      },
+      })
+      // informacion sobre marcador
+      this.map.setOnMarkerClickListener(async (marker) => {
+        console.log(marker);
 
-    ];
-    await this.map.addMarkers(markers);
+        const modal = await this.utilSvc.modalCtrl.create({
+          component: ModalPage,
+          componentProps: {
+            marker,
+          },
+          breakpoints: [0, 0.3],
+          initialBreakpoint: 0.3,
+        });
+        modal.present();
+      })
 
-    // informacion sobre marcador 
-    this.map.setOnMarkerClickListener(async (marker) => {
-      console.log(marker);
-      const modal = await this.utilSvc.modalCtrl.create({
-        component: ModalPage,
-        componentProps: {
-          marker,
-        },
-        breakpoints: [0, 0.3],
-        initialBreakpoint: 0.3,
-      });
-      modal.present();
-    })
+
+    });
   }
-
-
-
 }
 
 
