@@ -18,11 +18,11 @@ export class ClimaService {
 
   // funcion con coordenadas
   getWeather2(lat: number, lng: number) {
-    return this.http.get('https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lng + '&appid=df8323ce37bea8353d6c7fd24b2990a1')
+    return this.http.get('https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lng + '&appid=' + this.apiKey + '&units=metric')
   }
-
+  // funcion con nombre de la cuidad
   getWeather(city: string) {
-    return this.http.get('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=df8323ce37bea8353d6c7fd24b2990a1')
+    return this.http.get('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + this.apiKey + '&units=metric')
   }
 
 

@@ -27,7 +27,9 @@
 
     <div class="temp" color="danger" *ngIf="weatherData">
       <h2 color="secondary">{{ weatherData.name}}</h2>
-      <p>Temperatura: {{weatherData.main.temp}}</p>
+      <p>Temperatura: {{weatherData.main.temp}} °C</p>
+      <p>Humedad: {{weatherData.main.humidity}} %</p>
+      <p>Clima: {{weatherData.weather[0].description}}</p>
     </div>
   </ion-content>
 
