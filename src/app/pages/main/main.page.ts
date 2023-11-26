@@ -1,7 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
-
+import { ClimaService } from 'src/app/services/clima.service';
+import { Geolocation } from '@capacitor/geolocation';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -15,6 +16,7 @@ export class MainPage implements OnInit {
 
   firebaseSvc = inject(FirebaseService);
   utilSvc = inject(UtilsService);
+  clima = inject(ClimaService);
 
   pages = [
     { title: 'Inicio', url: '/main/home', icon: 'home-outline' },
@@ -25,11 +27,44 @@ export class MainPage implements OnInit {
   router = inject(Router);
   currentPath: string = '';
 
+  weatherData: any;
 
   ngOnInit() {
     this.router.events.subscribe((event: any) => {
       if (event?.url) this.currentPath = event.url;
     })
+  }
+
+  ngAfterViewInit() {
+    this.getClima();
+  }
+
+
+  async getClima() {
+
+    Geolocation.getCurrentPosition().then((res) => {
+      const position = {
+        lat: res.coords.latitude,
+        lng: res.coords.longitude,
+      };
+      // console.log('Current position:', position);
+      this.clima.getWeather2(position.lat, position.lng)
+        .subscribe(data => {
+          this.weatherData = data
+          console.log(data);
+        })
+
+    });
+
+
+
+
+
+
+
+
+
+
   }
 
 

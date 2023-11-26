@@ -30,17 +30,20 @@ export class ProfilePage implements OnInit {
   // tomar/seleccionar una imagen
   async takeImage() {
     // variable que captura los datos del usuaio
-    try {
-      let user = this.user();
-      let path = `users/${user.uid}`;
 
-      const loading = await this.utilsSvc.loading();
-      await loading.present();
+    let user = this.user();
+    let path = `users/${user.uid}`;
 
-      const dataUrl = (await this.utilsSvc.takePicture("Imagen de Perfil")).dataUrl;
+    const dataUrl = (await this.utilsSvc.takePicture("Imagen de Perfil")).dataUrl;
 
-      let imagePath = `${user.uid}/profile`;
-      user.image = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
+    const loading = await this.utilsSvc.loading();
+    await loading.present();
+
+    let imagePath = `${user.uid}/profile`;
+    user.image = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
+
+    this.firebaseSvc.updateDocument(path, { image: user.image }).then(async res => {
+
 
       this.utilsSvc.saveInLocalStorage("user", user);
 
@@ -53,11 +56,25 @@ export class ProfilePage implements OnInit {
       });
       loading.dismiss();
 
-    } catch (error) {
+    }).catch(error => {
       console.log(error);
-      const loading = await this.utilsSvc.loading();
+      const loading = this.utilsSvc.loading();
+
+      this.utilsSvc.presentToast({
+        message: error.message,
+        duration: 2500,
+        color: "dark",
+        position: "middle",
+        icon: "alert-circle-outline",
+      });
+
+
+    }).finally(() => {
       loading.dismiss();
-    }
+    })
 
   }
+
 }
+
+

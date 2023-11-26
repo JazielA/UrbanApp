@@ -24,6 +24,11 @@
         <ion-label>{{p.title}}</ion-label>
       </ion-item>
     </ion-menu-toggle>
+
+    <div class="temp" color="danger" *ngIf="weatherData">
+      <h2 color="secondary">{{ weatherData.name}}</h2>
+      <p>Temperatura: {{weatherData.main.temp}}</p>
+    </div>
   </ion-content>
 
   <ion-footer class="ion-no-border safe-p-bottom">

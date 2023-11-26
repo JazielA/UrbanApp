@@ -21,6 +21,8 @@ export class AddTripComponent implements OnInit {
 
 
 
+
+
   direcciones: any[] = [
     { id: 1, direccion: "duoc viña" },
     { id: 2, direccion: "duoc valpo" },

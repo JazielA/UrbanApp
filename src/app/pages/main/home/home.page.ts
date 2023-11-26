@@ -36,9 +36,11 @@ export class HomePage implements OnInit {
     subtitulo: 'Mi ubicacion actual'
   }
 
+
+
   marker: any;
   infoWindow: any;
-
+  circle: any;
 
   ngOnInit() { }
 
@@ -85,17 +87,20 @@ export class HomePage implements OnInit {
     });
 
 
-    this.map.enableClustering();
+
+    // const markerId = await this.map.addMarker({
+    //   coordinate: {
+    //     lat: this.position.lat,
+    //     lng: this.position.lng,
+    //   }
+    // });
 
 
 
     this.infoWindow = new google.maps.InfoWindow();
     // this.addMarkers();
 
-
   }
-
-
 
 
 
@@ -112,15 +117,13 @@ export class HomePage implements OnInit {
 
 
   watchPosition() {
-    const wait = Geolocation.watchPosition({}, (position, err) => {
+    const wait = Geolocation.watchPosition({ enableHighAccuracy: true }, (position, err) => {
       if (err) {
         console.error(err);
-        return;
+
       }
       console.log(position);
-      this.addMarkers();
     });
-
 
   }
 
@@ -133,13 +136,79 @@ export class HomePage implements OnInit {
         lng: res.coords.longitude,
       };
       console.log('Current position:', position);
-      this.addMarkers();
+      this.addMarker();
+
+
     });
+
   }
 
 
+  async addMarker() {
+
+    const wait = Geolocation.watchPosition({ enableHighAccuracy: true }, (position, err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log(position);
+
+      const marker: Marker =
+      {
+        coordinate: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        },
+        title: 'Mi ubicacion actual',
+        snippet: 'position',
+        draggable: true,
+        iconUrl: "assets/icon/bus2.png",
+        iconSize: {
+          width: 50,
+          height: 50,
+        },
+      };
+
+
+      this.map.addMarker(marker);
+
+      // centrar la posicion del mapa en la ubicacion del dispositivo
+      this.map.setCamera({
+        coordinate: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        },
+      })
+      // informacion sobre marcador
+      this.map.setOnMarkerClickListener(async (marker) => {
+        console.log(marker);
+
+        const modal = await this.utilSvc.modalCtrl.create({
+          component: ModalPage,
+          componentProps: {
+            marker,
+          },
+          breakpoints: [0, 0.3],
+          initialBreakpoint: 0.3,
+        });
+        modal.present();
+      })
+
+
+    });
+
+
+
+
+
+  }
+
+
+
+
   // agregar marcadores
-  async addMarkers() {
+  async addMarkerss() {
+
 
 
     const wait = Geolocation.watchPosition({}, (position, err) => {
@@ -172,7 +241,6 @@ export class HomePage implements OnInit {
 
 
       this.map.addMarkers(markers);
-      const result = this.map.addMarkers(markers);
 
       // centrar la posicion del mapa en la ubicacion del dispositivo
       this.map.setCamera({
@@ -182,9 +250,64 @@ export class HomePage implements OnInit {
         },
       })
       // informacion sobre marcador
-      this.map.setOnMarkerClickListener(async (marker) => {
-        console.log(marker);
+      // this.map.setOnMarkerClickListener(async (marker) => {
+      //   console.log(marker);
 
+      //   const modal = await this.utilSvc.modalCtrl.create({
+      //     component: ModalPage,
+      //     componentProps: {
+      //       marker,
+      //     },
+      //     breakpoints: [0, 0.3],
+      //     initialBreakpoint: 0.3,
+      //   });
+      //   modal.present();
+      // })
+
+
+    });
+
+
+  }
+
+
+  async addMarkers() {
+    const wait = Geolocation.watchPosition({ enableHighAccuracy: true }, (position, err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log(position);
+
+      const marker: Marker = {
+        coordinate: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        },
+        title: 'Mi ubicacion actual',
+        snippet: 'position',
+        draggable: true,
+        iconUrl: "assets/icon/bus2.png",
+        iconSize: {
+          width: 50,
+          height: 50,
+        },
+      };
+
+      // Add the marker only once
+      this.map.addMarker(marker);
+
+
+      // Center the map position on the device location
+      this.map.setCamera({
+        coordinate: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        },
+      })
+
+      // Information about the marker
+      this.map.setOnMarkerClickListener(async (marker) => {
         const modal = await this.utilSvc.modalCtrl.create({
           component: ModalPage,
           componentProps: {
@@ -195,10 +318,72 @@ export class HomePage implements OnInit {
         });
         modal.present();
       })
-
-
     });
   }
+
+
+
+
+
+
+
+
+
+
+
+  async addMarkerr() {
+
+    const wait = Geolocation.watchPosition({ enableHighAccuracy: true }, (position, err) => {
+      if (err) {
+        console.error(err);
+
+      }
+      console.log(position);
+
+    });
+
+    const marker: Marker =
+    {
+      coordinate: {
+        lat: this.position.lat,
+        lng: this.position.lng,
+      },
+      title: 'Mi ubicacion actual',
+      snippet: 'position',
+      draggable: true,
+      iconUrl: "assets/icon/bus2.png",
+      iconSize: {
+        width: 50,
+        height: 50,
+      },
+    };
+
+    // centrar la posicion del mapa en la ubicacion del dispositivo
+    this.map.setCamera({
+      coordinate: {
+        lat: this.position.lat,
+        lng: this.position.lng,
+      },
+    })
+    // informacion sobre marcador
+    this.map.setOnMarkerClickListener(async (marker) => {
+      // console.log(marker);
+
+      const modal = await this.utilSvc.modalCtrl.create({
+        component: ModalPage,
+        componentProps: {
+          marker,
+        },
+        breakpoints: [0, 0.3],
+        initialBreakpoint: 0.3,
+      });
+      modal.present();
+    })
+
+
+  }
+
+
 }
 
 
